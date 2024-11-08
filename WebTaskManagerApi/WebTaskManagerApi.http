@@ -1,0 +1,6 @@
+@WebTaskManagerApi_HostAddress = http://localhost:5190
+
+GET {{WebTaskManagerApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
