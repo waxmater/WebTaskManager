@@ -1,19 +1,16 @@
 # Папки сборки
 /WebTaskManagerApi/obj
- /WebTaskManagerApp/obj
- /WebTaskManagerApi/bin
- /WebTaskManagerApp/bin
+/WebTaskManagerApp/obj
+/WebTaskManagerApi/bin
+/WebTaskManagerApp/bin
 
- # Конфигурационные файлы
- appsettings.json
- *.config
+# Конфигурационные файлы
+appsettings.json
+*.config
 
- # Операционные файлы
- *.log
- *.tmp
+# Операционные файлы
+*.log
+*.tmp
 
 # IDE
 .vs/
-
-
-/WebTaskManagerApp/obj
