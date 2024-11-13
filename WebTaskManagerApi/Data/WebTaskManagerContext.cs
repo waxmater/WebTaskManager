@@ -25,9 +25,6 @@ public partial class WebTaskManagerContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    { }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -36,17 +33,34 @@ public partial class WebTaskManagerContext : DbContext
 
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
+            entity.HasKey(e => e.IdComments).HasName("PRIMARY");
 
             entity.ToTable("comments");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Comment1)
-                .HasColumnType("text")
-                .HasColumnName("comment");
-            entity.Property(e => e.Username)
-                .HasMaxLength(255)
-                .HasColumnName("username");
+            entity.HasIndex(e => e.TasksIdTask, "fk_comments_tasks1_idx");
+
+            entity.HasIndex(e => e.UsersIdUser, "fk_comments_users1_idx");
+
+            entity.Property(e => e.IdComments).HasColumnName("id_comments");
+            entity.Property(e => e.Datetime)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime")
+                .HasColumnName("datetime");
+            entity.Property(e => e.TasksIdTask).HasColumnName("tasks_id_task");
+            entity.Property(e => e.Text)
+                .HasMaxLength(200)
+                .HasColumnName("text");
+            entity.Property(e => e.UsersIdUser).HasColumnName("users_id_user");
+
+            entity.HasOne(d => d.TasksIdTaskNavigation).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.TasksIdTask)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_comments_tasks1");
+
+            entity.HasOne(d => d.UsersIdUserNavigation).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.UsersIdUser)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_comments_users1");
         });
 
         modelBuilder.Entity<Status>(entity =>

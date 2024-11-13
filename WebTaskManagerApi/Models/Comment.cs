@@ -5,9 +5,17 @@ namespace WebTaskManagerApi.Models;
 
 public partial class Comment
 {
-    public int Id { get; set; }
+    public int IdComments { get; set; }
 
-    public string Username { get; set; } = null!;
+    public string? Text { get; set; }
 
-    public string Comment1 { get; set; } = null!;
+    public DateTime? Datetime { get; set; }
+
+    public int TasksIdTask { get; set; }
+
+    public int UsersIdUser { get; set; }
+
+    public virtual Task TasksIdTaskNavigation { get; set; } = null!;
+
+    public virtual User UsersIdUserNavigation { get; set; } = null!;
 }

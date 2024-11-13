@@ -18,4 +18,6 @@ public partial class Task
     public DateOnly? Deadline { get; set; }
 
     public DateOnly? CreationDate { get; set; }
+
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }
